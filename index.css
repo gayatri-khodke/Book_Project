@@ -76,8 +76,8 @@ header ul li a {
 
 header ul li a:hover {
     color: #333;
-    /* background-color: #ffa500; */
-    background-color: #f156d4;
+    background-color: #eaae3f;
+    /* background-color:skyblue; */
     border-radius: 5px;
 }
 
@@ -119,6 +119,55 @@ header ul li a:hover {
 .searchdiv span:hover {
     color: #ffa500;
 }
+
+/* priyanka  */
+.books {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.book-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bookimg {
+    width: 150px; /* Increased width */
+    height: 150px; /* Increased height */
+    margin-bottom: 10px; /* Margin between image and text */
+}
+
+.para {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.book1 {
+    text-align: center;
+    margin: 20px;
+}
+
+.book1img {
+    /* display: block; */
+    /* margin: 0 auto; */
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 14px 18px rgba(0, 0, 0, 0.1);
+}
+
+
+
 
 @media (max-width: 480px) {
     .navbar1 {
