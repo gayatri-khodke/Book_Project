@@ -7,6 +7,7 @@
 
 body {
     background-color: #f4f4f4;
+    /* position: relative; */
 }
 #header-section{
     background-color: #e3c9c9;
@@ -461,6 +462,17 @@ margin-left: 3%;
        #card-out {
            width: 100%;
        }
+
+       /* =====pranali login page query start===== */
+    .login-wrapper {
+        width: 340px;
+        margin-top: 100px;
+    }
+
+    .loginpage {
+        width: 300px;
+    }
+/* =========pranali query end======= */
    }
    
    @media (max-width: 390px) {
@@ -478,3 +490,95 @@ margin-left: 3%;
 
 /* end */
 
+/* ==========pranali login code start========= */
+.login-wrapper {
+    border: 1px solid red;
+    border-radius: 8px;
+    padding: 10px;
+    width: 500px;
+    min-width: auto;
+    background-color: rgb(228, 208, 208);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+}
+
+.loginpage {
+    width: 450px;
+    padding: 10px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.input input {
+    width: 100%;
+    margin: 5px;
+    padding: 6px;
+    border: none;
+    background-color: rgb(242, 240, 240);
+    outline: none;
+}
+
+.cross{
+    color: #d40d0d;
+    float: right;
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.forgot {
+    float: right;
+    color: #d40d0d;
+}
+
+.loginbtn button {
+    width: 100%;
+    border: 1px solid #d40d0d;
+    padding: 6px;
+    margin: 5px;
+    color: white;
+    background-color: #d40d0d;
+    border-radius: 4px;
+}
+
+.loginbtn :hover {
+    background-color: #c20e0e;
+}
+
+.or{
+    margin-top: 10px;
+}
+
+.otpbtn button {
+    border: 1px solid #d40d0d;
+    width: 100%;
+    padding: 6px;
+    margin: 5px;
+    color: #d40d0d;
+    border-radius: 4px;
+}
+
+.otpbtn :hover {
+    color: black;
+}
+
+.logo-img img {
+    width: 30px;
+    margin: 10px;
+}
+
+.textclr {
+    color: #d40d0d;
+}
+
+/* =============open /close modal============ */
+.open-modal {
+    visibility: visible;
+    z-index: 10;
+}
+/* ==========pranali login code end========= */
