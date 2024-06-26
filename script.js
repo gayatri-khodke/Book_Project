@@ -8,6 +8,7 @@ const storebook=[
     "Fiction",
     "epic"
   ],
+  "price":"40$",
   "description": "A classic novel depicting racial injustice in the American South.",
   "cover_image": "img/9781857992915.jpg"
 },
@@ -16,6 +17,7 @@ const storebook=[
   "title": "1984",
   "author": "George Orwell",
   "publication_year": 1949,
+  "price":"40$",
   "genre": [
     "Dystopian",
     "Science Fiction"
@@ -28,6 +30,7 @@ const storebook=[
   "title": "Pride and Prejudice",
   "author": "Jane Austen",
   "publication_year": 1813,
+  "price":"40$",
   "genre": [
     "Classic",
     "Romance"
@@ -40,6 +43,7 @@ const storebook=[
   "title": "The Great Gatsby",
   "author": "F. Scott Fitzgerald",
   "publication_year": 1925,
+  "price":"40$",
   "genre": [
     "Fiction",
     "Classic"
@@ -52,6 +56,7 @@ const storebook=[
   "title": "Moby-Dick",
   "author": "Herman Melville",
   "publication_year": 1851,
+  "price":"40$",
   "genre": [
     "Fiction",
     "Adventure"
@@ -64,6 +69,7 @@ const storebook=[
   "title": "The Lord of the Rings",
   "author": "J.R.R. Tolkien",
   "publication_year": 1954,
+  "price":"40$",
   "genre": [
     "Fantasy",
     "Adventure"
@@ -75,6 +81,7 @@ const storebook=[
   "id": 7,
   "title": "The Catcher in the Rye",
   "author": "J.D. Salinger",
+  "price":"40$",
   "publication_year": 1951,
   "genre": [
     "Fiction",
@@ -88,6 +95,7 @@ const storebook=[
   "title": "The Hobbit",
   "author": "J.R.R. Tolkien",
   "publication_year": 1937,
+  "price":"40$",
   "genre": [
     "Fantasy",
     "Adventure"
@@ -100,6 +108,7 @@ const storebook=[
   "title": "One Hundred Years of Solitude",
   "author": "Gabriel Garcia Marquez",
   "publication_year": 1967,
+  "price":"40$",
   "genre": [
     "Magical Realism",
     "Literary Fiction"
@@ -111,6 +120,7 @@ const storebook=[
   "id": 10,
   "title": "War and Peace",
   "author": "Leo Tolstoy",
+  "price":"40$",
   "publication_year": 1869,
   "genre": [
     "Historical Fiction",
@@ -123,6 +133,7 @@ const storebook=[
   "id": 11,
   "title": "The Odyssey",
   "author": "Homer",
+  "price":"40$",
   "publication_year": "8th century BCE",
   "genre": [
     "Epic",
@@ -136,6 +147,7 @@ const storebook=[
   "title": "The Divine Comedy",
   "author": "Dante Alighieri",
   "publication_year": "1320",
+  "price":"40$",
   "genre": [
     "Epic",
     "Poetry"
@@ -160,6 +172,7 @@ const storebook=[
   "title": "Crime and Punishment",
   "author": "Fyodor Dostoevsky",
   "publication_year": 1866,
+  "price":"40$",
   "genre": [
     "Classic",
     "Psychological Fiction"
@@ -172,6 +185,7 @@ const storebook=[
   "title": "The Picture of Dorian Gray",
   "author": "Oscar Wilde",
   "publication_year": 1890,
+  "price":"40$",
   "genre": [
     "Gothic",
     "Philosophical Fiction"
@@ -184,6 +198,7 @@ const storebook=[
   "title": "Brave New World",
   "author": "Aldous Huxley",
   "publication_year": 1932,
+  "price":"40$",
   "genre": [
     "Dystopian",
     "Science Fiction"
@@ -196,6 +211,7 @@ const storebook=[
   "title": "The Count of Monte Cristo",
   "author": "Alexandre Dumas",
   "publication_year": 1844,
+  "price":"40$",
   "genre": [
     "Adventure",
     "Historical Fiction"
@@ -208,6 +224,7 @@ const storebook=[
   "title": "Anna Karenina",
   "author": "Leo Tolstoy",
   "publication_year": 1877,
+  "price":"40$",
   "genre": [
     "Classic",
     "Romance"
@@ -220,6 +237,7 @@ const storebook=[
   "title": "The Alchemist",
   "author": "Paulo Coelho",
   "publication_year": 1988,
+"price":"70$",
   "genre": [
     "Fiction",
     "Philosophical"
@@ -232,6 +250,8 @@ const storebook=[
   "title": "The Adventures of Huckleberry Finn",
   "author": "Mark Twain",
   "publication_year": 1884,
+  "price":"70$",
+
   "genre": [
     "Adventure",
     "Satire"
@@ -244,6 +264,8 @@ const storebook=[
   "title": "The Iliad",
   "author": "Homer",
   "publication_year": "8th century BCE",
+  "price":"70$",
+
   "genre": [
     "Epic",
     "Mythology"
@@ -252,100 +274,105 @@ const storebook=[
   "cover_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn_RQjQ7LRtoL2KdOzpwvT4_k-QNYIg9iJkA&s"
 },
 ]
+
 document.addEventListener("DOMContentLoaded", function() {
-const adventureBooksContainer = document.getElementById("adventure-books-container");
-const romanceClassicalBooksContainer = document.getElementById("romance-classical-books-container");
+  const adventureBooksContainer = document.getElementById("adventure-books-container");
+  const romanceClassicalBooksContainer = document.getElementById("romance-classical-books-container");
 
-// Filter books by genre
-const adventureBooks = storebook.filter(book => {
-    return book.genre.includes("Adventure");
+  const adventureBooks = storebook.filter(book => {
+      return book.genre.includes("Adventure");
+  });
+
+  const romanceClassicalBooks = storebook.filter(book => {
+      return book.genre.includes("Romance") || book.genre.includes("Classic");
+  });
+// to create a book card
+  function createBookCard(book, container) {
+      const cardOut = document.createElement("div");
+      cardOut.id = "card-out";
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const img = document.createElement("img");
+      img.src = book.cover_image;
+      img.alt = book.title;
+
+      const itemInfo = document.createElement("div");
+      itemInfo.className = "item-info";
+
+      const bookName = document.createElement("div");
+      bookName.className = "book-name";
+      bookName.textContent = book.title;
+
+      const authorName = document.createElement("div");
+      authorName.className = "auther-name";
+      authorName.textContent = book.author;
+
+      const rating = document.createElement("p");
+      for (let i = 0; i < 5; i++) {
+          const star = document.createElement("i");
+          star.className = "fa-solid fa-star";
+          if (i < 4) {
+              star.id = "color";
+          } else {
+              star.id = "col";
+          }
+          rating.appendChild(star);
+      }
+
+      const likeContainer = document.createElement("div");
+      likeContainer.className = "like-container";
+
+      const likeIcon = document.createElement("i");
+      likeIcon.className = "fa fa-heart";
+      likeIcon.style.color = "lightgray";
+      likeIcon.onclick = function() {
+          if (likeIcon.style.color === "lightgray") {
+              likeIcon.style.color = "red";
+          } else {
+              likeIcon.style.color = "lightgray";
+          }
+      };
+      likeContainer.appendChild(likeIcon);
+
+      const button = document.createElement("button");
+      button.id = "add";
+      button.textContent = "Add to Card";
+
+      itemInfo.appendChild(bookName);
+      itemInfo.appendChild(authorName);
+      itemInfo.appendChild(rating);
+      itemInfo.appendChild(likeContainer);
+
+      card.appendChild(img);
+      card.appendChild(itemInfo);
+      card.appendChild(button);
+
+      cardOut.appendChild(card);
+      container.appendChild(cardOut);
+
+      cardOut.addEventListener("click", function() {
+          const bookDetails = {
+              cover_image: book.cover_image,
+              title: book.title,
+              author: book.author,
+              publication_year: book.publication_year,
+              genre: book.genre,
+              description: book.description
+          };
+          localStorage.setItem("bookDetails", JSON.stringify(bookDetails));
+          window.location.href = "bookdetail.html";
+      });
+  }
+
+  // Add adventure books
+  adventureBooks.forEach(book => {
+      createBookCard(book, adventureBooksContainer);
+  });
+
+  // Add romance/classic books
+  romanceClassicalBooks.forEach(book => {
+      createBookCard(book, romanceClassicalBooksContainer);
+  });
 });
-
-const romanceClassicalBooks = storebook.filter(book => {
-    return book.genre.includes("Romance") || book.genre.includes("Classic");
-});
-
-// Function to create a book card
-function createBookCard(book, container) {
-    const cardOut = document.createElement("div");
-    cardOut.id = "card-out";
-
-    const card = document.createElement("div");
-    card.className = "card";
-
-    const img = document.createElement("img");
-    img.src = book.cover_image;
-    img.alt = book.title;
-
-    const itemInfo = document.createElement("div");
-    itemInfo.className = "item-info";
-
-    const bookName = document.createElement("div");
-    bookName.className = "book-name";
-    bookName.textContent = book.title;
-
-    const authorName = document.createElement("div");
-    authorName.className = "auther-name";
-    authorName.textContent = book.author;
-
-    const rating = document.createElement("p");
-    for (let i = 0; i < 5; i++) {
-        const star = document.createElement("i");
-        star.className = "fa-solid fa-star";
-        if (i < 4) {
-            star.id = "color";
-        } else {
-            star.id = "col";
-        }
-        rating.appendChild(star);
-    }
-
-    const likeContainer = document.createElement("div");
-    likeContainer.className = "like-container";
-
-    const likeIcon = document.createElement("i");
-    likeIcon.className = "fa fa-heart";
-    likeIcon.style.color = "lightgray";
-    likeIcon.onclick = function() {
-        if (likeIcon.style.color === "lightgray") {
-            likeIcon.style.color = "red";
-        } else {
-            likeIcon.style.color = "lightgray";
-        }
-    };
-    likeContainer.appendChild(likeIcon);
-
-    const button = document.createElement("button");
-    button.id = "add";
-    button.textContent = "Add to Card";
-
-    itemInfo.appendChild(bookName);
-    itemInfo.appendChild(authorName);
-    itemInfo.appendChild(rating);
-    itemInfo.appendChild(likeContainer);
-
-    card.appendChild(img);
-    card.appendChild(itemInfo);
-    card.appendChild(button);
-
-    cardOut.appendChild(card);
-    container.appendChild(cardOut);
-}
-
-//  Adventure books
-adventureBooks.forEach(book => {
-    createBookCard(book, adventureBooksContainer);
-});
-//romace books
-romanceClassicalBooks.forEach(book => {
-    createBookCard(book, romanceClassicalBooksContainer);
-});
-});
-
-
-
-
-
-
-
-

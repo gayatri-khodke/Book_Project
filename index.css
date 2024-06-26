@@ -435,7 +435,7 @@ header ul li a:hover {
     font-family:"Roboto", sans-serif;
 }
 h1{
-margin: 5px;
+margin-top:10px;
 font-size:2em;
 margin-left: 3%;
 }
@@ -452,7 +452,6 @@ margin-left: 3%;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    /* border: 1px solid lightgray; */
     padding: 2%;
     gap:50px 10px;
 }
