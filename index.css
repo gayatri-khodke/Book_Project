@@ -377,6 +377,8 @@ header ul li a:hover {
     margin-right: 10px;
 }
 
+/* arpita */
+
 @media (max-width: 768px) {
     .customers-text {
         flex-direction: column;
