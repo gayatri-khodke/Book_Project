@@ -409,3 +409,40 @@ document.getElementById('userinput').addEventListener('input', displayBook);
       createBookCard(book, romanceClassicalBooksContainer);
   });
 });
+
+// =======pranali js=======
+const mainLoginbtn = document.querySelector(".login-btn")
+const crossbtn = document.querySelector(".cross")
+const loginPage = document.querySelector(".login-wrapper")
+// ==============form=============
+const loginbtn = document.querySelector("#addForm")
+
+loginbtn.addEventListener("submit", formSubmit)
+
+function formSubmit(e) {
+    e.preventDefault();
+
+    const userMail = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const payload = {
+        userMail: userMail,
+        password: password,
+    };
+    console.log(payload, "this is payload");
+  
+}
+
+mainLoginbtn.addEventListener("click", openpage)
+
+function openpage() {
+    loginPage.classList.add("open-modal")
+    console.log("add");
+}
+
+crossbtn.addEventListener("click", function () {
+    loginPage.classList.remove("open-modal")
+    console.log("remove");
+})
+
+// ======end======
