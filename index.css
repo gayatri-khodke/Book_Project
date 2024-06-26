@@ -120,6 +120,8 @@ header ul li a:hover {
     color: #ffa500;
 }
 
+
+
 @media (max-width: 480px) {
     .navbar1 {
         padding: 10px;
