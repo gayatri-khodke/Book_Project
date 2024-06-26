@@ -344,6 +344,38 @@ romanceClassicalBooks.forEach(book => {
 
 
 
+function displayBook() {
+  console.log("search :-")
+  const userInput = document.getElementById('userinput').value.toLowerCase();
+  const resultsContainer = document.getElementById('search-results');
+  resultsContainer.innerHTML = '';
+
+  const filteredBooks = storebook.filter(book => book.title.toLowerCase().includes(userInput));
+
+  filteredBooks.forEach(book => {
+    const bookCard = document.createElement('div');
+    bookCard.className = 'col-md-4 mb-4';
+    bookCard.innerHTML = `
+      <div class="card">
+        <img src="${book.cover_image}" class="card-img-top" alt="${book.title}">
+        <div class="card-body">
+          <h5 class="card-title">${book.title}</h5>
+          <p class="card-text">Author: ${book.author}</p>
+          <p class="card-text">Genre: ${book.genre.join(', ')}</p>
+          <p class="card-text">Price: ${book.price}</p>
+          <p class="card-text">${book.description}</p>
+        </div>
+      </div>
+    `;
+    resultsContainer.appendChild(bookCard);
+  });
+
+  if (filteredBooks.length === 0) {
+    resultsContainer.innerHTML = '<p class="text-center">No results found.</p>';
+  }
+}
+
+document.getElementById('userinput').addEventListener('input', displayBook);
 
 
 
