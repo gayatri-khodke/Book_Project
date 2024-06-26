@@ -299,6 +299,104 @@ header ul li a:hover {
 
 /* preeti  */
 
+.customer-main {
+    background-color: rgb(223, 223, 236);
+    padding: 4rem;
+}
+
+.Text {
+    text-align: center;
+}
+
+.TextHeading {
+    color: blue;
+}
+
+.customers-text {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.customers {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+}
+
+.customers-img img {
+    border-radius: 50%;
+    height: 9rem;
+    width: 9rem;
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 3rem 1rem;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+    text-align: center;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+}
+
+.footer-section p {
+    margin-bottom: 0.5rem;
+}
+
+.footer-text {
+    color: blue;
+}
+.footer p{
+    padding:5px 1px;
+}
+
+.icon {
+    display: flex;
+    justify-content: space-between;
+    max-width: 200px;
+    margin: 1rem auto;
+}
+
+.fa {
+    margin-right: 10px;
+}
+
+/* arpita */
+
+@media (max-width: 768px) {
+    .customers-text {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-section {
+        text-align: center;
+        margin: 10px 0;
+    }
+}
+
+
 @media (max-width: 480px) {
     .navbar1 {
         padding: 10px;
@@ -337,7 +435,7 @@ header ul li a:hover {
     font-family:"Roboto", sans-serif;
 }
 h1{
-margin-top:10px;
+margin: 5px;
 font-size:2em;
 margin-left: 3%;
 }
@@ -354,6 +452,7 @@ margin-left: 3%;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    /* border: 1px solid lightgray; */
     padding: 2%;
     gap:50px 10px;
 }
@@ -428,7 +527,6 @@ margin-left: 3%;
    .display-book{
     width:100%;
     margin:auto;
-    text-align:center;
    }
    
 
