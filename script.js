@@ -274,104 +274,72 @@ const storebook=[
   "cover_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn_RQjQ7LRtoL2KdOzpwvT4_k-QNYIg9iJkA&s"
 },
 ]
+const favoriteArray=[]
+const addToFavorite = (book) => {
+  if (!favoriteArray.some(favBook => favBook.title === book.title)) {
+    favoriteArray.push(book);
+    console.log(`Added to favorites: ${book.title}`);
+    console.log(favoriteArray);
+    // Update heart icon color
+    const heartIcon = document.querySelector(`.card-out[data-title="${book.title}"] .fa-heart`);
+    heartIcon.style.color = heartIcon.style.color === 'lightgray' ? 'red' : 'lightgray';
+  }
+};
 
 
-
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
   const adventureBooksContainer = document.getElementById("adventure-books-container");
   const romanceClassicalBooksContainer = document.getElementById("romance-classical-books-container");
+  const displayallbookContainer=document.querySelector('#displayall');
+  const filterBooks = (genre) => storebook.filter(book => genre.some(g => book.genre.includes(g)));
 
-  const adventureBooks = storebook.filter(book => book.genre.includes("Adventure"));
-  const romanceClassicalBooks = storebook.filter(book => book.genre.includes("Romance") || book.genre.includes("Classic"));
-
-  function createBookCard(book, container) {
+  const createBookCard = (book, container, index) => {
     const cardOut = document.createElement("div");
-    cardOut.id = "card-out";
-
-    const card = document.createElement("div");
-    card.className = "card";
-
-    const img = document.createElement("img");
-    img.src = book.cover_image;
-    img.alt = book.title;
-
-    const itemInfo = document.createElement("div");
-    itemInfo.className = "item-info";
-
-    const bookName = document.createElement("div");
-    bookName.className = "book-name";
-    bookName.textContent = book.title;
-
-    const authorName = document.createElement("div");
-    authorName.className = "auther-name";
-    authorName.textContent = book.author;
-
-    const rating = document.createElement("p");
-    for (let i = 0; i < 5; i++) {
-      const star = document.createElement("i");
-      star.className = "fa-solid fa-star";
-      if (i < 4) {
-        star.id = "color";
-      } else {
-        star.id = "col";
-      }
-      rating.appendChild(star);
-    }
-
-    const likeContainer = document.createElement("div");
-    likeContainer.className = "like-container";
-
-    const likeIcon = document.createElement("i");
-    likeIcon.className = "fa fa-heart";
-    likeIcon.style.color = "lightgray";
-    likeIcon.onclick = function() {
-      if (likeIcon.style.color === "lightgray") {
-        likeIcon.style.color = "red";
-      } else {
-        likeIcon.style.color = "lightgray";
-      }
-    };
-    likeContainer.appendChild(likeIcon);
-
-    const button = document.createElement("button");
-    button.id = "add";
-    button.textContent = "Add to Cart";
-
-    itemInfo.appendChild(bookName);
-    itemInfo.appendChild(authorName);
-    itemInfo.appendChild(rating);
-    itemInfo.appendChild(likeContainer);
-
-    card.appendChild(img);
-    card.appendChild(itemInfo);
-    card.appendChild(button);
-
-    cardOut.appendChild(card);
+    cardOut.className = "card-out";
+    cardOut.setAttribute('data-index', index);
+    cardOut.innerHTML = `
+      <div class="card">
+        <div class='image'>
+          <img src="${book.cover_image}" alt="${book.title}">
+        </div>
+        <div class="item-info">
+          <div class="book-name">${book.title}</div>
+          <div class="author-name">${book.author}</div>
+          <p>${[...Array(5)].map((_, i) => `<i class="fa-solid fa-star ${i < 4 ? 'color' : 'col'}"></i>`).join('')}</p>
+          <div class="like-container">
+            <i class="fa fa-heart" style="color: lightgray;"></i>
+          </div>
+          <button class="view-details" data-index="${index}">View Details</button>
+        </div>
+      </div>
+    `;
     container.appendChild(cardOut);
+ // Event listener for the heart icon
+ const heartIcon = cardOut.querySelector('.fa-heart');
+ heartIcon.addEventListener("click", () => addToFavorite(book));
 
-    cardOut.addEventListener("click", function() {
-      const bookDetails = {
-        cover_image: book.cover_image,
-        title: book.title,
-        author: book.author,
-        publication_year: book.publication_year,
-        genre: book.genre,
-        description: book.description
-      };
-      localStorage.setItem("bookDetails", JSON.stringify(bookDetails));
+    // <i class="fa fa-heart" style="color: lightgray;" onclick="this.style.color = this.style.color === 'lightgray' ? 'red' : 'lightgray';"></i>
+
+    const handleClick = () => {
+      const { cover_image, title, author, publication_year, genre, description } = book;
+      localStorage.setItem("bookDetails", JSON.stringify({ cover_image, title, author, publication_year, genre, description }));
       window.location.href = "bookdetail.html";
-    });
-  }
+    };
+    const imageElement = cardOut.querySelector('.image img');
+    const buttonElement = cardOut.querySelector('.view-details');
 
-  // Add adventure books
-  adventureBooks.forEach(book => {
-    createBookCard(book, adventureBooksContainer);
-  });
+    imageElement.addEventListener("click", handleClick);
+    buttonElement.addEventListener("click", handleClick);
+  };
 
-  // Add romance/classic books
-  romanceClassicalBooks.forEach(book => {
-    createBookCard(book, romanceClassicalBooksContainer);
-  });
+  // Example usage (assumes you have a storebook array and genre lists)
+  const adventureBooks = filterBooks(['Adventure']);
+  adventureBooks.forEach((book, index) => createBookCard(book, adventureBooksContainer, index));
+
+  storebook.forEach((book, index) => createBookCard(book, displayallbookContainer, index));
+
+  const romanceClassicalBooks = filterBooks(['Epic', 'Classical']);
+  romanceClassicalBooks.forEach((book, index) => createBookCard(book, romanceClassicalBooksContainer, index));
 });
 
 function displayBook() {
@@ -437,11 +405,7 @@ crossbtn.addEventListener("click", function () {
   loginPage.classList.remove("open-modal");
 });
 
-
 // authors js
-
-
-
 const slides = document.querySelector('.slides');
 const images = document.querySelectorAll('.slides img');
 const prevBtn = document.getElementById('prev');
@@ -461,3 +425,9 @@ prevBtn.addEventListener('click', () => {
     slides.style.transform = 'translateX(' + (-size * (counter - 1)) + 'px)';
     counter--;
 });
+
+let favoritebook=document.querySelector('#li-child1');
+favoritebook.addEventListener('click',function(){
+  const favoriteArrayJSON = JSON.stringify(favoriteArray);
+  localStorage.setItem('favorites',favoriteArray);
+})

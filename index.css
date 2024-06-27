@@ -457,29 +457,29 @@ margin-left: 3%;
     padding: 2%;
     gap:50px 10px;
 }
-#card-out{
+.card-out{
     width: 19%;
     padding: 1%;
     height: 460px;
     text-align: center;
     border: 1px solid rgb(201, 197, 197);
 }
-#card-out:hover{
+.card-out:hover{
     border-radius: 2px;
     box-shadow:3px 3px 10px 2px rgb(218, 216, 216);
 }
 .card{
     height: 100%;
-    padding: 3% 2%;
-    display: flex;
+    padding: 3% 4%;
+    /* display: flex;
     align-items: center;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center; */
     border: 1px solid rgb(246, 241, 241);
 }
 .card img{
     height: 240px;
-    width: 90%;
+    width: 100%;
 }
 .book-name{
     color: rgb(101, 100, 100);
@@ -529,35 +529,50 @@ margin-left: 3%;
     width:100%;
     margin:auto;
    }
-   
-
+   .view-details {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 30px;
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+  
+  .view-details:hover {
+    background-color: #0056b3;
+  }
+  
+  .view-details:focus {
+    outline: none;
+  }
+  
    /*Responsive Styles */
    @media (max-width: 1200px) {
-       #card-out {
+       .card-out {
            width: 24%;
        }
    }
    
    @media (max-width: 992px) {
-       #card-out {
+       .card-out {
            width: 32%;
        }
    }
    
    @media (max-width: 768px) {
-       #card-out {
+       .card-out {
            width: 48%;
        }
    }
    
    @media (max-width: 576px) {
-       #card-out {
+       .card-out {
            width: 98%;
        }
    }
    
    @media (max-width: 428px) {
-       #card-out {
+       .card-out {
            width: 100%;
        }
 
@@ -574,14 +589,14 @@ margin-left: 3%;
    }
    
    @media (max-width: 390px) {
-       #card-out {
+       .card-out {
            width: 100%;
        }
    }
    
    /* Specific iPhone 14 (390px x 844px) */
    @media screen and (max-device-width: 390px) and (min-device-height: 844px) and (-webkit-min-device-pixel-ratio: 3) {
-       #card-out {
+       .card-out {
            width: 100%;
        }
    }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <section class="main-container1">
+        <div class="wraper">
+            <h1>All Books</h1>
+            <div class="insidewrap" id="displayall">
+                
+            </div>
+        
+    </section>
+    
+    <script>
+        const getArrayInJson=localStorage('favorites');
+        const getBookArray=JSON.parse(getArrayInJson);
+        console.log(getBookArray);
+        const createBookCard = (book, index) => {
+    const cardOut = document.createElement("div");
+    cardOut.className = "card-out";
+    cardOut.setAttribute('data-index', index);
+    cardOut.innerHTML = `
+      <div class="card">
+        <div class='image'>
+          <img src="${book.cover_image}" alt="${book.title}">
+        </div>
+        <div class="item-info">
+          <div class="book-name">${book.title}</div>
+          <div class="author-name">${book.author}</div>
+          <p>${[...Array(5)].map((_, i) => `<i class="fa-solid fa-star ${i < 4 ? 'color' : 'col'}"></i>`).join('')}</p>
+          <div class="like-container">
+            <i class="fa fa-heart" style="color: lightgray;"></i>
+          </div>
+          <button class="view-details" data-index="${index}">View Details</button>
+        </div>
+      </div>
+    `;
+    container.appendChild(cardOut);
+
+    const handleClick = () => {
+      const { cover_image, title, author, publication_year, genre, description } = book;
+      localStorage.setItem("bookDetails", JSON.stringify({ cover_image, title, author, publication_year, genre, description }));
+      window.location.href = "bookdetail.html";
+    };
+    // const imageElement = cardOut.querySelector('.image img');
+    // const buttonElement = cardOut.querySelector('.view-details');
+
+    // imageElement.addEventListener("click", handleClick);
+    // buttonElement.addEventListener("click", handleClick);
+  };
+
+  // Example usage (assumes you have a storebook array and genre lists)
+  getBookArray.forEach((book, index) => createBookCard(book, index));
+</script>
+</body>
+</html>
