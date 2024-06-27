@@ -436,3 +436,28 @@ function openpage() {
 crossbtn.addEventListener("click", function () {
   loginPage.classList.remove("open-modal");
 });
+
+
+// authors js
+
+
+
+const slides = document.querySelector('.slides');
+const images = document.querySelectorAll('.slides img');
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
+
+let counter = 0;
+const size = images[0].clientWidth;
+
+nextBtn.addEventListener('click', () => {
+    if (counter >= images.length - 4) return;
+    slides.style.transform = 'translateX(' + (-size * (counter + 1)) + 'px)';
+    counter++;
+});
+
+prevBtn.addEventListener('click', () => {
+    if (counter <= 0) return;
+    slides.style.transform = 'translateX(' + (-size * (counter - 1)) + 'px)';
+    counter--;
+});
