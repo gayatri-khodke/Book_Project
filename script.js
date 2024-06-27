@@ -275,74 +275,106 @@ const storebook=[
 },
 ]
 
+
+
 document.addEventListener("DOMContentLoaded", function() {
   const adventureBooksContainer = document.getElementById("adventure-books-container");
   const romanceClassicalBooksContainer = document.getElementById("romance-classical-books-container");
 
-  const adventureBooks = storebook.filter(book => {
-      return book.genre.includes("Adventure");
-  });
+  const adventureBooks = storebook.filter(book => book.genre.includes("Adventure"));
+  const romanceClassicalBooks = storebook.filter(book => book.genre.includes("Romance") || book.genre.includes("Classic"));
 
-  const romanceClassicalBooks = storebook.filter(book => {
-      return book.genre.includes("Romance") || book.genre.includes("Classic");
-  });
-// to create a book card
   function createBookCard(book, container) {
-      const cardOut = document.createElement("div");
-      cardOut.id = "card-out";
+    const cardOut = document.createElement("div");
+    cardOut.id = "card-out";
 
-      const card = document.createElement("div");
-      card.className = "card";
+    const card = document.createElement("div");
+    card.className = "card";
 
-      const img = document.createElement("img");
-      img.src = book.cover_image;
-      img.alt = book.title;
+    const img = document.createElement("img");
+    img.src = book.cover_image;
+    img.alt = book.title;
 
-      const itemInfo = document.createElement("div");
-      itemInfo.className = "item-info";
+    const itemInfo = document.createElement("div");
+    itemInfo.className = "item-info";
 
-      const bookName = document.createElement("div");
-      bookName.className = "book-name";
-      bookName.textContent = book.title;
+    const bookName = document.createElement("div");
+    bookName.className = "book-name";
+    bookName.textContent = book.title;
 
-      const authorName = document.createElement("div");
-      authorName.className = "auther-name";
-      authorName.textContent = book.author;
+    const authorName = document.createElement("div");
+    authorName.className = "auther-name";
+    authorName.textContent = book.author;
 
-      const rating = document.createElement("p");
-      for (let i = 0; i < 5; i++) {
-          const star = document.createElement("i");
-          star.className = "fa-solid fa-star";
-          if (i < 4) {
-              star.id = "color";
-          } else {
-              star.id = "col";
-          }
-          rating.appendChild(star);
+    const rating = document.createElement("p");
+    for (let i = 0; i < 5; i++) {
+      const star = document.createElement("i");
+      star.className = "fa-solid fa-star";
+      if (i < 4) {
+        star.id = "color";
+      } else {
+        star.id = "col";
       }
+      rating.appendChild(star);
+    }
 
-      const likeContainer = document.createElement("div");
-      likeContainer.className = "like-container";
+    const likeContainer = document.createElement("div");
+    likeContainer.className = "like-container";
 
-      const likeIcon = document.createElement("i");
-      likeIcon.className = "fa fa-heart";
-      likeIcon.style.color = "lightgray";
-      likeIcon.onclick = function() {
-          if (likeIcon.style.color === "lightgray") {
-              likeIcon.style.color = "red";
-          } else {
-              likeIcon.style.color = "lightgray";
-          }
+    const likeIcon = document.createElement("i");
+    likeIcon.className = "fa fa-heart";
+    likeIcon.style.color = "lightgray";
+    likeIcon.onclick = function() {
+      if (likeIcon.style.color === "lightgray") {
+        likeIcon.style.color = "red";
+      } else {
+        likeIcon.style.color = "lightgray";
+      }
+    };
+    likeContainer.appendChild(likeIcon);
+
+    const button = document.createElement("button");
+    button.id = "add";
+    button.textContent = "Add to Cart";
+
+    itemInfo.appendChild(bookName);
+    itemInfo.appendChild(authorName);
+    itemInfo.appendChild(rating);
+    itemInfo.appendChild(likeContainer);
+
+    card.appendChild(img);
+    card.appendChild(itemInfo);
+    card.appendChild(button);
+
+    cardOut.appendChild(card);
+    container.appendChild(cardOut);
+
+    cardOut.addEventListener("click", function() {
+      const bookDetails = {
+        cover_image: book.cover_image,
+        title: book.title,
+        author: book.author,
+        publication_year: book.publication_year,
+        genre: book.genre,
+        description: book.description
       };
-      likeContainer.appendChild(likeIcon);
+      localStorage.setItem("bookDetails", JSON.stringify(bookDetails));
+      window.location.href = "bookdetail.html";
+    });
+  }
 
-      const button = document.createElement("button");
-      button.id = "add";
-      button.textContent = "Add to Card";
+  // Add adventure books
+  adventureBooks.forEach(book => {
+    createBookCard(book, adventureBooksContainer);
+  });
 
+  // Add romance/classic books
+  romanceClassicalBooks.forEach(book => {
+    createBookCard(book, romanceClassicalBooksContainer);
+  });
+});
 
 function displayBook() {
-  console.log("search :-")
   const userInput = document.getElementById('userinput').value.toLowerCase();
   const resultsContainer = document.getElementById('search-results');
   resultsContainer.innerHTML = '';
@@ -373,76 +405,34 @@ function displayBook() {
 }
 
 document.getElementById('userinput').addEventListener('input', displayBook);
-      itemInfo.appendChild(bookName);
-      itemInfo.appendChild(authorName);
-      itemInfo.appendChild(rating);
-      itemInfo.appendChild(likeContainer);
-
-      card.appendChild(img);
-      card.appendChild(itemInfo);
-      card.appendChild(button);
-
-      cardOut.appendChild(card);
-      container.appendChild(cardOut);
-
-      cardOut.addEventListener("click", function() {
-          const bookDetails = {
-              cover_image: book.cover_image,
-              title: book.title,
-              author: book.author,
-              publication_year: book.publication_year,
-              genre: book.genre,
-              description: book.description
-          };
-          localStorage.setItem("bookDetails", JSON.stringify(bookDetails));
-          window.location.href = "bookdetail.html";
-      });
-  }
-
-  // Add adventure books
-  adventureBooks.forEach(book => {
-      createBookCard(book, adventureBooksContainer);
-  });
-
-  // Add romance/classic books
-  romanceClassicalBooks.forEach(book => {
-      createBookCard(book, romanceClassicalBooksContainer);
-  });
-});
 
 // =======pranali js=======
-const mainLoginbtn = document.querySelector(".login-btn")
-const crossbtn = document.querySelector(".cross")
-const loginPage = document.querySelector(".login-wrapper")
-// ==============form=============
-const loginbtn = document.querySelector("#addForm")
+const mainLoginbtn = document.querySelector(".login-btn");
+const crossbtn = document.querySelector(".cross");
+const loginPage = document.querySelector(".login-wrapper");
+const loginbtn = document.querySelector("#addForm");
 
-loginbtn.addEventListener("submit", formSubmit)
+loginbtn.addEventListener("submit", formSubmit);
 
 function formSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const userMail = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+  const userMail = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-    const payload = {
-        userMail: userMail,
-        password: password,
-    };
-    console.log(payload, "this is payload");
-  
+  const payload = {
+    userMail: userMail,
+    password: password,
+  };
+  console.log(payload, "this is payload");
 }
 
-mainLoginbtn.addEventListener("click", openpage)
+mainLoginbtn.addEventListener("click", openpage);
 
 function openpage() {
-    loginPage.classList.add("open-modal")
-    console.log("add");
+  loginPage.classList.add("open-modal");
 }
 
 crossbtn.addEventListener("click", function () {
-    loginPage.classList.remove("open-modal")
-    console.log("remove");
-})
-
-// ======end======
+  loginPage.classList.remove("open-modal");
+});
