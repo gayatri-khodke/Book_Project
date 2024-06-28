@@ -362,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const displayBook = () => {
     const userInput = document.getElementById('userinput').value.toLowerCase();
-    const resultsContainer = document.getElementById('search-results');
+    const resultsContainer = document.getElementById('displayFilteredData');
     resultsContainer.innerHTML = '';
 
     const filteredBooks = storebook.filter(book => book.title.toLowerCase().includes(userInput));
