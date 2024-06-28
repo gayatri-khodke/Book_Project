@@ -274,105 +274,124 @@ const storebook=[
   "cover_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn_RQjQ7LRtoL2KdOzpwvT4_k-QNYIg9iJkA&s"
 },
 ]
-const favoriteArray=[]
-const addToFavorite = (book) => {
-  if (!favoriteArray.some(favBook => favBook.title === book.title)) {
-    favoriteArray.push(book);
-    console.log(`Added to favorites: ${book.title}`);
-    console.log(favoriteArray);
-    // Update heart icon color
-    const heartIcon = document.querySelector(`.card-out[data-title="${book.title}"] .fa-heart`);
-    heartIcon.style.color = heartIcon.style.color === 'lightgray' ? 'red' : 'lightgray';
-  }
-};
-
+const favoriteArray = JSON.parse(localStorage.getItem('favorites')) || [];
+const displayFilteredData = document.querySelector('#displayFilteredData');
 
 document.addEventListener("DOMContentLoaded", () => {
-  const adventureBooksContainer = document.getElementById("adventure-books-container");
-  const romanceClassicalBooksContainer = document.getElementById("romance-classical-books-container");
-  const displayallbookContainer=document.querySelector('#displayall');
-  const filterBooks = (genre) => storebook.filter(book => genre.some(g => book.genre.includes(g)));
+    const adventureBooksContainer = document.getElementById("adventure-books-container");
+    const romanceClassicalBooksContainer = document.getElementById("romance-classical-books-container");
+    const displayallbookContainer = document.querySelector('#displayall');
 
-  const createBookCard = (book, container, index) => {
-    const cardOut = document.createElement("div");
-    cardOut.className = "card-out";
-    cardOut.setAttribute('data-index', index);
-    cardOut.innerHTML = `
-      <div class="card">
-        <div class='image'>
-          <img src="${book.cover_image}" alt="${book.title}">
-        </div>
-        <div class="item-info">
-          <div class="book-name">${book.title}</div>
-          <div class="author-name">${book.author}</div>
-          <p>${[...Array(5)].map((_, i) => `<i class="fa-solid fa-star ${i < 4 ? 'color' : 'col'}"></i>`).join('')}</p>
-          <div class="like-container">
-            <i class="fa fa-heart" style="color: lightgray;"></i>
-          </div>
-          <button class="view-details" data-index="${index}">View Details</button>
-        </div>
-      </div>
-    `;
-    container.appendChild(cardOut);
- // Event listener for the heart icon
- const heartIcon = cardOut.querySelector('.fa-heart');
- heartIcon.addEventListener("click", () => addToFavorite(book));
-
-    // <i class="fa fa-heart" style="color: lightgray;" onclick="this.style.color = this.style.color === 'lightgray' ? 'red' : 'lightgray';"></i>
-
-    const handleClick = () => {
-      const { cover_image, title, author, publication_year, genre, description } = book;
-      localStorage.setItem("bookDetails", JSON.stringify({ cover_image, title, author, publication_year, genre, description }));
-      window.location.href = "bookdetail.html";
+    const filterBooksByGenre = (genre) => {
+        const filteredBooks = storebook.filter(book => book.genre.includes(genre));
+        displayFilteredData.innerHTML = '';
+        filteredBooks.forEach((book, index) => createBookCard(book, displayFilteredData, index));
     };
-    const imageElement = cardOut.querySelector('.image img');
-    const buttonElement = cardOut.querySelector('.view-details');
 
-    imageElement.addEventListener("click", handleClick);
-    buttonElement.addEventListener("click", handleClick);
-  };
+    window.filterBooksByGenre = filterBooksByGenre; // Make the function globally accessible
 
-  // Example usage (assumes you have a storebook array and genre lists)
-  const adventureBooks = filterBooks(['Adventure']);
-  adventureBooks.forEach((book, index) => createBookCard(book, adventureBooksContainer, index));
+    const createBookCard = (book, container, index) => {
+        const cardOut = document.createElement("div");
+        cardOut.className = "card-out";
+        cardOut.setAttribute('data-index', index);
+        cardOut.innerHTML = `
+            <div class="card">
+                <div class='image'>
+                    <img src="${book.cover_image}" alt="${book.title}">
+                </div>
+                <div class="item-info">
+                    <div class="book-name">${book.title}</div>
+                    <div class="author-name">${book.author}</div>
+                    <p>${book.genre.join(', ')}</p>
+                    <div class="like-container">
+                        <i class="fa fa-heart" style="color: ${isBookInFavorites(book) ? 'red' : 'lightgray'};" data-book-id="${book.id}"></i>
+                        <p>${[...Array(5)].map((_, i) => `<i class="fa-solid fa-star ${i < 4 ? 'color' : 'col'}"></i>`).join('')}</p>
+                    </div>
+                    <button class="view-details" data-index="${index}">View Details</button>
+                </div>
+            </div>
+        `;
+        container.appendChild(cardOut);
 
-  storebook.forEach((book, index) => createBookCard(book, displayallbookContainer, index));
+        const heartIcon = cardOut.querySelector('.fa-heart');
+        heartIcon.addEventListener("click", () => toggleFavorite(book, heartIcon));
 
-  const romanceClassicalBooks = filterBooks(['Epic', 'Classical']);
-  romanceClassicalBooks.forEach((book, index) => createBookCard(book, romanceClassicalBooksContainer, index));
+        const handleClick = () => {
+            const { cover_image, title, author, publication_year, genre, description } = book;
+            localStorage.setItem("bookDetails", JSON.stringify({ cover_image, title, author, publication_year, genre, description }));
+            window.location.href = "bookdetail.html";
+        };
+
+        const imageElement = cardOut.querySelector('.image img');
+        const buttonElement = cardOut.querySelector('.view-details');
+
+        imageElement.addEventListener("click", handleClick);
+        buttonElement.addEventListener("click", handleClick);
+    };
+
+    window.createBookCard = createBookCard; // Make the function globally accessible
+
+    const toggleFavorite = (book, icon) => {
+        const index = favoriteArray.findIndex(favBook => favBook.id === book.id);
+        if (index === -1) {
+            favoriteArray.push(book);
+            icon.style.color = 'red';
+        } else {
+            favoriteArray.splice(index, 1);
+            icon.style.color = 'lightgray';
+        }
+        localStorage.setItem('favorites', JSON.stringify(favoriteArray));
+    };
+
+    window.toggleFavorite = toggleFavorite; // Make the function globally accessible
+
+    const isBookInFavorites = (book) => {
+        return favoriteArray.some(favBook => favBook.id === book.id);
+    };
+
+    window.isBookInFavorites = isBookInFavorites; // Make the function globally accessible
+
+    const adventureBooks = storebook.filter(book => book.genre.includes('Adventure'));
+    adventureBooks.forEach((book, index) => createBookCard(book, adventureBooksContainer, index));
+
+    storebook.forEach((book, index) => createBookCard(book, displayallbookContainer, index));
+
+    const romanceClassicalBooks = storebook.filter(book => ['Epic', 'Classical'].some(g => book.genre.includes(g)));
+    romanceClassicalBooks.forEach((book, index) => createBookCard(book, romanceClassicalBooksContainer, index));
 });
 
-function displayBook() {
-  const userInput = document.getElementById('userinput').value.toLowerCase();
-  const resultsContainer = document.getElementById('search-results');
-  resultsContainer.innerHTML = '';
+const displayBook = () => {
+    const userInput = document.getElementById('userinput').value.toLowerCase();
+    const resultsContainer = document.getElementById('search-results');
+    resultsContainer.innerHTML = '';
 
-  const filteredBooks = storebook.filter(book => book.title.toLowerCase().includes(userInput));
+    const filteredBooks = storebook.filter(book => book.title.toLowerCase().includes(userInput));
+    filteredBooks.forEach((book, index) => createBookCard(book, resultsContainer, index));
 
-  filteredBooks.forEach(book => {
-    const bookCard = document.createElement('div');
-    bookCard.className = 'col-md-4 mb-4';
-    bookCard.innerHTML = `
-      <div class="card">
-        <img src="${book.cover_image}" class="card-img-top" alt="${book.title}">
-        <div class="card-body">
-          <h5 class="card-title">${book.title}</h5>
-          <p class="card-text">Author: ${book.author}</p>
-          <p class="card-text">Genre: ${book.genre.join(', ')}</p>
-          <p class="card-text">Price: ${book.price}</p>
-          <p class="card-text">${book.description}</p>
-        </div>
-      </div>
-    `;
-    resultsContainer.appendChild(bookCard);
-  });
-
-  if (filteredBooks.length === 0) {
-    resultsContainer.innerHTML = '<p class="text-center">No results found.</p>';
-  }
-}
+    if (filteredBooks.length === 0) {
+        resultsContainer.innerHTML = '<p class="text-center">No results found.</p>';
+    }
+};
 
 document.getElementById('userinput').addEventListener('input', displayBook);
+
+const toggleFavorite = (iconElement) => {
+    const bookId = parseInt(iconElement.getAttribute('data-book-id'));
+    const book = storebook.find(book => book.id === bookId);
+
+    if (!book) return;
+
+    const index = favoriteArray.findIndex(favBook => favBook.id === book.id);
+    if (index === -1) {
+        favoriteArray.push(book);
+        iconElement.style.color = 'red';
+    } else {
+        favoriteArray.splice(index, 1);
+        iconElement.style.color = 'lightgray';
+    }
+    localStorage.setItem('favorites', JSON.stringify(favoriteArray));
+};
+
 
 // =======pranali js=======
 const mainLoginbtn = document.querySelector(".login-btn");
@@ -426,8 +445,7 @@ prevBtn.addEventListener('click', () => {
     counter--;
 });
 
-let favoritebook=document.querySelector('#li-child1');
-favoritebook.addEventListener('click',function(){
-  const favoriteArrayJSON = JSON.stringify(favoriteArray);
-  localStorage.setItem('favorites',favoriteArray);
-})
+
+function filterData(data){
+
+}

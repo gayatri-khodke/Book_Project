@@ -537,6 +537,10 @@ margin-left: 3%;
     cursor: pointer;
     font-size: 1.1rem;
   }
+  .like-container{
+    display:flex;
+    justify-content:center;
+  }
   
   .view-details:hover {
     background-color: #0056b3;

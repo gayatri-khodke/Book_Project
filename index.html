@@ -39,18 +39,18 @@
         </div>
     </section>
     <header>
-        <ul>
+        <ul id="filterbooks">
             <li id="li-child1"><a href="displayfavorite.html">Favorite Books</a></li>
-            <li><a href="#">Hindi novel</a></li>
-            <li><a href="#">childrens</a></li>
-            <li><a href="#">Cartoons</a></li>
-            <li><a href="#">Romantic</a></li>
-            <li><a href="#">Horror</a></li>
-            <li><a href="#">History</a></li>
-            <li><a href="#">Biography</a></li>
-
+            <li onclick="filterBooksByGenre('Historical Fiction')"><a href="#">Historical Fiction</a></li>
+            <li onclick="filterBooksByGenre('Mythology')"><a href="#">Mythology</a></li>
+            <li onclick="filterBooksByGenre('Dystopian')"><a href="#">Dystopian</a></li>
+            <li onclick="filterBooksByGenre('Romance')"><a href="#">Romantic</a></li>
         </ul>
     </header>
+    <!-- <div id="displayFilteredData"></div>
+    <div id="adventure-books-container"></div>
+    <div id="romance-classical-books-container"></div>
+    <div id="displayall"></div> -->
 </section>
 <!-- ========pranali slider code start======== -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -152,8 +152,14 @@ crossorigin="anonymous"></script>
     </section>
 
             <!-- arpita belsare  code below -->
+             <section class="showdata">
+                <h1>Filtered data</h1>
+                <div class="insidewrap" id="displayFilteredData"> </div>
+             </section>
       <div class="wraper">
-        
+        <!-- <h1>Filtered data</h1>
+        <div class="insidewrap" id="displayFilteredData"> </div> -->
+
         <h1>Adventure's Stories</h1>
         <div class="insidewrap" id="adventure-books-container">
            
