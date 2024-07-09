@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
         filteredBooks.forEach((book, index) => createBookCard(book, displayFilteredData, index));
     };
 
-    window.filterBooksByGenre = filterBooksByGenre; // Make the function globally accessible
+    window.filterBooksByGenre = filterBooksByGenre;
 
     const createBookCard = (book, container, index) => {
         const cardOut = document.createElement("div");
@@ -343,13 +343,14 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('favorites', JSON.stringify(favoriteArray));
     };
 
-    window.toggleFavorite = toggleFavorite; // Make the function globally accessible
+    window.toggleFavorite = toggleFavorite; 
+    // this togglefavorite function is accessible globaly because we store it in window object
 
     const isBookInFavorites = (book) => {
         return favoriteArray.some(favBook => favBook.id === book.id);
     };
 
-    window.isBookInFavorites = isBookInFavorites; // Make the function globally accessible
+    window.isBookInFavorites = isBookInFavorites; 
 
     const adventureBooks = storebook.filter(book => book.genre.includes('Adventure'));
     adventureBooks.forEach((book, index) => createBookCard(book, adventureBooksContainer, index));
@@ -394,7 +395,7 @@ const toggleFavorite = (iconElement) => {
 
 
 // =======pranali js=======
-const mainLoginbtn = document.querySelector(".login-btn");
+const mainLoginbtn = document.querySelector(".fa-user");
 const crossbtn = document.querySelector(".cross");
 const loginPage = document.querySelector(".login-wrapper");
 const loginbtn = document.querySelector("#addForm");

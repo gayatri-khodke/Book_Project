@@ -573,12 +573,16 @@ margin-left: 3%;
        .card-out {
            width: 98%;
        }
+       .navbar1 span{
+        display:none;
+       }
    }
    
    @media (max-width: 428px) {
        .card-out {
            width: 100%;
        }
+
 
        /* =====pranali login page query start===== */
     .login-wrapper {
