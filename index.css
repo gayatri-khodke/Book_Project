@@ -627,7 +627,7 @@ margin-left: 3%;
 }
 
 .loginpage {
-    width: 450px;
+    width: auto;
     padding: 10px;
     margin: 10px auto;
     text-align: center;
@@ -697,6 +697,12 @@ margin-left: 3%;
     color: #d40d0d;
 }
 
+@media (max-width:500px){
+    .login-wrapper{
+        width:320px;
+        top:40%;
+       }
+}
 /* =============open /close modal============ */
 .open-modal {
     visibility: visible;
